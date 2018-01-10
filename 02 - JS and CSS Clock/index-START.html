@@ -18,11 +18,15 @@
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size:cover;
+      /* background-image: url(https://s-media-cache-ak0.pinimg.com/originals/48/70/34/48703492d29919752179ece70038b044.gif); */
       font-family:'helvetica neue';
       text-align: center;
       font-size: 10px;
+      background-repeat: no-repeat;
+      background-size: 40%;
+      background-color: peru;
+     
+      
     }
 
     body {
@@ -37,7 +41,7 @@
     .clock {
       width: 30rem;
       height: 30rem;
-      border:20px solid white;
+      border:20px solid rgba(255, 255, 255, 0.945);
       border-radius:50%;
       margin:50px auto;
       position: relative;
@@ -62,12 +66,39 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(01, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minsHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    
+    function setDate(){
+      const now = new Date();
+      
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+      // console.log(seconds);
 
+      const mins = now.getMinutes();
+      const minsDegrees = ((mins / 60) * 360) + 90;
+      minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+      const hour = now.getHours();
+      const hourDegrees = ((hour / 12) * 360) + 90;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+      
+
+    }
+
+    setInterval(setDate, 1000);
 
   </script>
 </body>
